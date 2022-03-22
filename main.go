@@ -17,7 +17,7 @@ const (
 func main() {
 	log.Printf("starting...")
 	r := gin.Default()
-	r.POST("/:namespace/:name/secrets", func(c *gin.Context) {
+	r.POST("/secrets", func(c *gin.Context) {
 
 		log.Printf("auth header %v", c.Request.Header.Get("Authorization"))
 		for name, values := range c.Request.Header {
