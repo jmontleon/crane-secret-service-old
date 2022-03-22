@@ -9,18 +9,41 @@ import (
 )
 
 const (
-	port = ":8080"
+	bearerSchema string = "Bearer"
+	apiServer    string = "https://kubernetes.default.svc"
+	port         string = ":8443"
 )
 
 func main() {
+	log.Printf("starting...")
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		// log.Printf("auth header %v", c.Request.Header.Get("Authorization"))
+	r.POST("/:namespace/:name/secrets", func(c *gin.Context) {
+
+		log.Printf("auth header %v", c.Request.Header.Get("Authorization"))
 		for name, values := range c.Request.Header {
 			for _, value := range values {
 				log.Println(name, value)
 			}
 		}
+
+
+// 		namespace, _ := c.Params.Get("namespace")
+// 		name, _ := c.Params.Get("name")
+
+// 		authHeader := c.Request.Header.Get("Authorization")
+// 		if authHeader == "" {
+// 			log.Println("No auth header provided")
+// 			return
+// 		}
+
+// 		token := authHeader[len(bearerSchema):]
+
+		// log.Printf("auth header %v", c.Request.Header.Get("Authorization"))
+		// for name, values := range c.Request.Header {
+		// 	for _, value := range values {
+		// 		log.Println(name, value)
+		// 	}
+		// }
 
 		// info := auth.Info{
 		// 	User: "foo",
